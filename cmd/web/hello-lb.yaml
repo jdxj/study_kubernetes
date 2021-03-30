@@ -1,0 +1,12 @@
+# kubectl create -f hello-lb.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-lb
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app2: svc

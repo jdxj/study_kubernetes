@@ -1,0 +1,22 @@
+# kubectl create -f hello-rs.yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: hello-rs
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: rs
+  template:
+    metadata:
+      labels:
+        app: rs
+        app2: svc
+    spec:
+      containers:
+        - image: jdxj/study_kubernetes:v0.3.0
+          name: test-study-k8s
+          ports:
+            - containerPort: 8080
+              protocol: TCP

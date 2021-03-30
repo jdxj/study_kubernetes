@@ -1,0 +1,20 @@
+# kubectl create -f hello-rc.yaml
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: hello-rc
+spec:
+  replicas: 3
+  selector:
+    app: rc
+  template:
+    metadata:
+      labels:
+        app: rc
+    spec:
+      containers:
+        - image: jdxj/study_kubernetes:v0.3.0
+          name: test-study-k8s
+          ports:
+            - containerPort: 8080
+              protocol: TCP

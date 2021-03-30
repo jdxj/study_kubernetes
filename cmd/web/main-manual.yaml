@@ -1,0 +1,16 @@
+# kubectl create -f main-manual.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-liveness
+spec:
+  containers:
+    - image: jdxj/study_kubernetes:v0.2.0
+      name: test-study-k8s
+      livenessProbe:
+        httpGet:
+          path: /
+          port: 8080
+      ports:
+        - containerPort: 8080
+          protocol: TCP
