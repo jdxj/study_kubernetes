@@ -1,0 +1,10 @@
+db:
+  user: "root"
+  pass: "123456"
+  host: ""
+  port: ""
+redis:
+  host: ""
+  port: ""
+  pass: ""
+  dbNum: 0

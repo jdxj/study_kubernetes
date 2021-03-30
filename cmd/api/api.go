@@ -14,7 +14,7 @@ func StartAPI(host, port string) {
 	e := gin.Default()
 
 	api := e.Group("/api")
-	api.GET("/", hello)
+	api.GET("", hello)
 
 	v1.Register(api)
 

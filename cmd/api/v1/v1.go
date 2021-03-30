@@ -8,7 +8,7 @@ import (
 
 func Register(p *gin.RouterGroup) {
 	gV1 := p.Group("/v1")
-	gV1.GET("/", hello)
+	gV1.GET("", hello)
 }
 
 func hello(ctx *gin.Context) {
