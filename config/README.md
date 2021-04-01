@@ -1,10 +1,12 @@
 # 配置 configMap 卷
 
+> 创建之前要写好 config.yaml 文件
+
 1. 指定配置文件夹
 
 ```shell
 # config 为该项目的 config 文件夹, 主要关注 config.yaml 文件
-$ $ kubectl create configmap study-k8s-config --from-file=config
+$ kubectl create configmap study-k8s-config --from-file=config
 configmap/study-k8s-config created
 ```
 

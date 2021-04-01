@@ -3,12 +3,11 @@ package main
 import (
 	"log"
 
+	"github.com/jdxj/study_kubernetes/cmd/echo/handler"
+	"github.com/jdxj/study_kubernetes/cmd/echo/proto"
 	"github.com/jdxj/study_kubernetes/config"
 	"github.com/jdxj/study_kubernetes/dao/db"
 	"github.com/jdxj/study_kubernetes/dao/redis"
-
-	v1 "github.com/jdxj/study_kubernetes/cmd/api/v1"
-	echo "github.com/jdxj/study_kubernetes/cmd/echo/proto"
 
 	_ "github.com/asim/go-micro/plugins/registry/consul/v3"
 	"github.com/asim/go-micro/v3"
@@ -16,7 +15,7 @@ import (
 )
 
 const (
-	modelName = "api"
+	modelName = "echo"
 )
 
 func main() {
@@ -27,28 +26,20 @@ func main() {
 			Value: "../../config/config.yaml",
 		}),
 	)
-
 	service.Init(
 		micro.Action(func(ctx *cli.Context) error {
 			path := ctx.String("cfg")
 			return Init(path)
 
 		}),
-		micro.AfterStart(func() error {
-			apiCfg := config.Ins.API
-			go StartAPI(apiCfg.Host, apiCfg.Port)
-			return nil
-		}),
-		micro.AfterStop(func() error {
-			// todo: 实现 StopAPI()
-			return nil
-		}),
 	)
 
-	// note: 要在 StartAPI() 启动之前初始化
-	v1.EchoService = echo.NewEchoService("echo", service.Client())
+	err := proto.RegisterEchoHandler(service.Server(), &handler.EchoService{})
+	if err != nil {
+		log.Fatalf("RegisterEchoHandler: %s\n", err)
+	}
 
-	err := service.Run()
+	err = service.Run()
 	if err != nil {
 		log.Printf("Run: %s\n", err)
 	}
@@ -71,5 +62,6 @@ func Init(path string) error {
 	if err != nil {
 		return err
 	}
+
 	return nil
 }

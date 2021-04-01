@@ -1,0 +1,32 @@
+# kubectl create -f api-dep.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-dep
+spec:
+  replicas: 3
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+        - name: api-c
+          image: jdxj/api:0.2.0
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - mountPath: /study_k8s/config
+              readOnly: true
+              name: api-cfg
+      volumes:
+        - name: api-cfg
+          configMap:
+            name: study-k8s-config
+            items:
+              - key: config.yaml
+                path: config.yaml

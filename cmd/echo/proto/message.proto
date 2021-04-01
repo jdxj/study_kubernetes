@@ -1,0 +1,14 @@
+syntax = "proto3";
+package proto;
+
+service Echo {
+  rpc Hello(Ping) returns (Pong) {}
+}
+
+message Ping {
+  bytes data = 1;
+}
+
+message Pong {
+  bytes data = 2;
+}

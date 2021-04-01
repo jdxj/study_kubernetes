@@ -1,0 +1,30 @@
+# kubectl create -f consul-rs.yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: consul-rs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consul
+  template:
+    metadata:
+      labels:
+        app: consul
+    spec:
+      containers:
+        - name: consul-c
+          image: consul:1.9
+          env:
+            - name: CONSUL_BIND_INTERFACE
+              value: eth0
+          ports:
+            - containerPort: 8500
+          args:
+            - agent
+            - -server
+            - -client=0.0.0.0
+            - -bootstrap
+            - -ui
+            - -node=1

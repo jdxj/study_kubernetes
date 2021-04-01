@@ -1,0 +1,18 @@
+# $ kubectl create -f redis-rs.yaml
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: redis-rs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis-c
+          image: redis:6

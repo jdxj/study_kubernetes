@@ -1,10 +1,13 @@
 db:
-  user: "root"
-  pass: "123456"
-  host: ""
-  port: ""
+  user: root
+  pass: 123456
+  host: 127.0.0.1 #10.106.17.93
+  port: 3306
 redis:
-  host: ""
-  port: ""
-  pass: ""
+  host: 127.0.0.1 #10.97.24.147
+  port: 6379
+  pass:
   dbNum: 0
+api:
+  host: 0.0.0.0
+  port: 8080
